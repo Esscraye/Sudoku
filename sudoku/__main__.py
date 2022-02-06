@@ -2,7 +2,7 @@ import requests
 import numpy as np
 import pygame
 import sys
-#aaaaaaaaaaaaaaaaaaaaaaa
+
 resp = requests.get("https://sugoku.herokuapp.com/board?difficulty=easy")
 
 grille = np.array(resp.json()['board'])
