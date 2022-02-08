@@ -1,6 +1,7 @@
 import random as rd
 import numpy as np
 
+
 def generator():
     base = 3
     side = base * base
@@ -22,4 +23,3 @@ def generator():
     board = [[nums[pattern(r, c)] for c in cols] for r in rows]
 
     for line in board: print(line)
-
