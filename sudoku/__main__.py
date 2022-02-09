@@ -138,10 +138,11 @@ def game():
                     grille[case] = value
                     flag = 1
 
-                if event.key == pygame.K_RETURN and sudoku_grille[case] == 0:
+                if event.key == pygame.K_BACKSPACE and sudoku_grille[case] == 0:
                     value = 0
                     grille[case] = value
                     flag = 1
+                    print('test')
 
                 if flag == 1:
                     affichage()
