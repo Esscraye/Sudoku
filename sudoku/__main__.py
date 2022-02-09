@@ -9,7 +9,6 @@ sudoku_grille = np.array(resp.json()['board'])
 grille = sudoku_grille.copy()
 print(grille)
 
-
 # écran :
 height = 1280
 width = 720
@@ -25,8 +24,8 @@ red = (200, 50, 50)
 def game():
     flag = 0
     flag_case = 0
-    case = 0,0
-    position_x, position_y = 0,0
+    case = 0, 0
+    position_x, position_y = 0, 0
     pygame.init()  # initializing pygame.
     window = pygame.display.set_mode((height, width))  # taille de la fenêtre
     pygame.display.set_caption("Sudoku")  # setting the caption (Tittle, icontitle=icon)
@@ -53,13 +52,14 @@ def game():
                 if 0 < grille[x][y] < 10:
                     if grille[x][y] == sudoku_grille[x][y]:
                         number_color = black
-                    else: number_color = bleu
+                    else:
+                        number_color = bleu
                     # rendering the text
                     val = Board_font.render(str(grille[x][y]), True, number_color)
                     # blitting the text on the board
                     window.blit(val, ((y + 1) * ecart + ecart // 2.5, (x + 1) * ecart + ecart // 5))
 
-    def highlightbox(pos_x,pos_y):
+    def highlightbox(pos_x, pos_y):
         pos_x = (pos_x + 1) * ecart
         pos_y = (pos_y + 1) * ecart
         for k in range(2):
@@ -146,8 +146,6 @@ def game():
                 if flag == 1:
                     affichage()
                     flag = 0
-
-
 
         pygame.display.update()
 
