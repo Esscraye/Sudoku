@@ -101,39 +101,39 @@ def game():
                     position_y += 1
                     flag = 1
                     case = position_y, position_x
-                if event.key == (pygame.K_1 or pygame.K_KP1) and sudoku_grille[case] == 0:
+                if (event.key == pygame.K_1 or event.key == pygame.K_KP1) and sudoku_grille[case] == 0:
                     value = 1
                     grille[case] = value
                     flag = 1
-                if event.key == (pygame.K_2 or pygame.K_KP2) and sudoku_grille[case] == 0:
+                if (event.key == pygame.K_2 or event.key == pygame.K_KP2) and sudoku_grille[case] == 0:
                     value = 2
                     grille[case] = value
                     flag = 1
-                if event.key == (pygame.K_3 or pygame.K_KP3) and sudoku_grille[case] == 0:
+                if (event.key == pygame.K_3 or event.key == pygame.K_KP3) and sudoku_grille[case] == 0:
                     value = 3
                     grille[case] = value
                     flag = 1
-                if event.key == (pygame.K_4 or pygame.K_KP4) and sudoku_grille[case] == 0:
+                if (event.key == pygame.K_4 or event.key == pygame.K_KP4) and sudoku_grille[case] == 0:
                     value = 4
                     grille[case] = value
                     flag = 1
-                if event.key == (pygame.K_5 or pygame.K_KP5) and sudoku_grille[case] == 0:
+                if (event.key == pygame.K_5 or event.key == pygame.K_KP5) and sudoku_grille[case] == 0:
                     value = 5
                     grille[case] = value
                     flag = 1
-                if event.key == (pygame.K_6 or pygame.K_KP6) and sudoku_grille[case] == 0:
+                if (event.key == pygame.K_6 or event.key == pygame.K_KP6) and sudoku_grille[case] == 0:
                     value = 6
                     grille[case] = value
                     flag = 1
-                if event.key == (pygame.K_7 or pygame.K_KP7) and sudoku_grille[case] == 0:
+                if (event.key == pygame.K_7 or event.key == pygame.K_KP7) and sudoku_grille[case] == 0:
                     value = 7
                     grille[case] = value
                     flag = 1
-                if event.key == (pygame.K_8 or pygame.K_KP8) and sudoku_grille[case] == 0:
+                if (event.key == pygame.K_8 or event.key == pygame.K_KP8) and sudoku_grille[case] == 0:
                     value = 8
                     grille[case] = value
                     flag = 1
-                if event.key == (pygame.K_9 or pygame.K_KP9) and sudoku_grille[case] == 0:
+                if (event.key == pygame.K_9 or event.key == pygame.K_KP9) and sudoku_grille[case] == 0:
                     value = 9
                     grille[case] = value
                     flag = 1
