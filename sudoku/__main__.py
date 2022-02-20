@@ -31,7 +31,7 @@ def game():
     pygame.display.set_caption("Sudoku")
     pygame.display.set_icon(icon)
     window.fill(bg_color)  # remplissage du fond de la fenêtre
-    Board_font = pygame.font.SysFont('Arial', 30)
+    Board_font = pygame.font.SysFont('Arial', 30, bold=pygame.font.Font.bold)
 
     def drawlines():
         for i in range(10):
