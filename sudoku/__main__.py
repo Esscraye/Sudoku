@@ -4,8 +4,8 @@ import pygame
 import sys
 from solution import Solver
 
-dificulty = 'easy'
-resp = requests.get("https://sugoku.herokuapp.com/board?difficulty="+dificulty)
+level = 'easy'
+resp = requests.get("https://sugoku.herokuapp.com/board?difficulty=" + level)
 
 sudoku_grille = np.array(resp.json()['board'])
 grille = sudoku_grille.copy()
@@ -15,8 +15,8 @@ solution_grille = np.array(Solver().solve(grille.copy()))
 height, width = 1280, 720
 longueur = 660  # taille du sudoku
 ecart = longueur / 11
-icon = None  # mettre un icon ici "./assets/images/sudoku_icon.png" et le récupérer
-bg_color = (245, 245, 245)  # couleur de fond
+icon = pygame.image.load("../assets/images/icon.jpg")
+bg_color = (240, 240, 240)  # couleur de fond
 black = (0, 0, 0)
 bleu = (100, 100, 200)
 red = (200, 50, 50)
@@ -28,7 +28,8 @@ def game():
     position_x, position_y = 0, 0
     pygame.init()  # initializing pygame.
     window = pygame.display.set_mode((height, width))  # taille de la fenêtre
-    pygame.display.set_caption("Sudoku")  # setting the caption (Tittle, icontitle=icon)
+    pygame.display.set_caption("Sudoku")
+    pygame.display.set_icon(icon)
     window.fill(bg_color)  # remplissage du fond de la fenêtre
     Board_font = pygame.font.SysFont('Arial', 30)
 
@@ -61,9 +62,10 @@ def game():
     def highlightbox(pos_x, pos_y):
         pos_x = (pos_x + 1) * ecart
         pos_y = (pos_y + 1) * ecart
-        for k in range(2):
-            pygame.draw.line(window, red, (pos_x + k * ecart, pos_y), (pos_x + k * ecart, pos_y + ecart), 7)
-            pygame.draw.line(window, red, (pos_x, pos_y + k * ecart), (pos_x + ecart, pos_y + k * ecart), 7)
+        if 1 * ecart <= pos_x <= 9 * ecart and 1 * ecart <= pos_y <= 9 * ecart:
+            for k in range(2):
+                pygame.draw.line(window, red, (pos_x + k * ecart, pos_y), (pos_x + k * ecart, pos_y + ecart), 7)
+                pygame.draw.line(window, red, (pos_x, pos_y + k * ecart), (pos_x + ecart, pos_y + k * ecart), 7)
 
     affichage()
     pygame.display.update()
