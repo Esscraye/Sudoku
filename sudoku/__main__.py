@@ -4,16 +4,15 @@ import pygame
 import sys
 from solution import Solver
 
-resp = requests.get("https://sugoku.herokuapp.com/board?difficulty=easy")
+dificulty = 'easy'
+resp = requests.get("https://sugoku.herokuapp.com/board?difficulty="+dificulty)
 
 sudoku_grille = np.array(resp.json()['board'])
 grille = sudoku_grille.copy()
-solution_grille = Solver().solve(grille.copy())
-print(solution_grille)
+solution_grille = np.array(Solver().solve(grille.copy()))
 
 # écran :
-height = 1280
-width = 720
+height, width = 1280, 720
 longueur = 660  # taille du sudoku
 ecart = longueur / 11
 icon = None  # mettre un icon ici "./assets/images/sudoku_icon.png" et le récupérer
@@ -85,20 +84,20 @@ def game():
                 affichage()
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT and position_x > 0:
-                    position_x -= 1
+                if event.key == pygame.K_LEFT:
+                    position_x = (position_x - 1) % 9
+                    case = position_y, position_x
+                    flag = 1
+                if event.key == pygame.K_RIGHT:
+                    position_x = (position_x + 1) % 9
                     flag = 1
                     case = position_y, position_x
-                if event.key == pygame.K_RIGHT and position_x < 8:
-                    position_x += 1
+                if event.key == pygame.K_UP:
+                    position_y = (position_y - 1) % 9
                     flag = 1
                     case = position_y, position_x
-                if event.key == pygame.K_UP and position_y > 0:
-                    position_y -= 1
-                    flag = 1
-                    case = position_y, position_x
-                if event.key == pygame.K_DOWN and position_y < 8:
-                    position_y += 1
+                if event.key == pygame.K_DOWN:
+                    position_y = (position_y + 1) % 9
                     flag = 1
                     case = position_y, position_x
                 if (event.key == pygame.K_1 or event.key == pygame.K_KP1) and sudoku_grille[case] == 0:
@@ -148,7 +147,7 @@ def game():
                     affichage()
                     flag = 0
         pygame.display.update()
-        if grille == solution_grille:
+        if np.all(grille == solution_grille):
             running = False
 
 
