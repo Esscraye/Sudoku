@@ -1,5 +1,6 @@
 import random as rd
 import numpy as np
+from random import sample
 
 class Generator:
     def __init__(self):
@@ -13,8 +14,6 @@ class Generator:
         def pattern(r, c): return (base * (r % base) + r // base + c) % side
 
         # randomize rows, columns and numbers (of valid base pattern)
-        from random import sample
-
         def shuffle(s): return sample(s, len(s))
 
         rBase = range(base)

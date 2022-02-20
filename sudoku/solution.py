@@ -1,44 +1,43 @@
-import requests
-import numpy as np
-import pygame
-import sys
+class Solver:
+    def __init__(self, M=9):
+        self.M = M
 
-resp = requests.get("https://sugoku.herokuapp.com/board?difficulty=easy")
+    def check(self, grid, row, col, num):
+        for x in range(self.M):
+            if grid[row][x] == num:
+                return False
 
-sudoku_grille = np.array(resp.json()['board'])
-grille = sudoku_grille.copy()
-solution_grille = grille.copy()  # il faut récupéer la solution
+        for x in range(self.M):
+            if grid[x][col] == num:
+                return False
 
+        startRow = row - row % 3
+        startCol = col - col % 3
+        for i in range(3):
+            for j in range(3):
+                if grid[i + startRow][j + startCol] == num:
+                    return False
+        return True
 
-def enlever(nombre, valeur):
-    a = nombre
-    b = 0
-    for i in range(9):
-        b += a % 10 * 2 ** i
-        a //= 10
-    b -= (2 ** (valeur - 1))
-    return bin(b)
+    def backtracking(self, grid, row, col):
+        if row == self.M - 1 and col == self.M:
+            return True
+        if col == self.M:
+            row += 1
+            col = 0
+        if grid[row][col] > 0:
+            return self.backtracking(grid, row, col + 1)
 
+        for num in range(1, self.M + 1, 1):
+            if self.check(grid, row, col, num):
+                grid[row][col] = num
+                if self.backtracking(grid, row, col + 1):
+                    return True
+            grid[row][col] = 0
+        return False
 
-def mettre(valeur):
-    return bin(2 ** (valeur - 1))
-
-
-matpos = 111111111 * np.ones((9, 9))
-
-for i, j in range(9):
-    x = sudoku_grille[i, j]
-    if x != 0:
-        matpos[i, j] = mettre(x)
-
-
-def check_pos(position_x, position_y):
-    for j in range(9):
-        if position_x != j:
-            matpos[position_y, position_x] = enlever([position_y, position_x], grille[position_y, j])
-    for k in range(9):
-        if position_y != k:
-            matpos[position_y, position_x] = enlever([position_y, position_x], grille[k, position_x])
-
-
-print(matpos)
+    def solve(self, grid):
+        if self.backtracking(grid, 0, 0):
+            print(grid)
+        else:
+            print("Solution does not exist :(")

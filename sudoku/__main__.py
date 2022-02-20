@@ -2,13 +2,14 @@ import requests
 import numpy as np
 import pygame
 import sys
+from solution import Solver
 
 resp = requests.get("https://sugoku.herokuapp.com/board?difficulty=easy")
 
 sudoku_grille = np.array(resp.json()['board'])
 grille = sudoku_grille.copy()
-solution_grille = grille.copy()  # il faut récupéer la solution
-print(grille)
+solution_grille = Solver().solve(grille.copy())
+print(solution_grille)
 
 # écran :
 height = 1280
@@ -47,7 +48,6 @@ def game():
         highlightbox(position_x, position_y)
         for x in range(0, len(grille[0])):
             for y in range(0, len(grille[0])):
-
                 # if it is a number between 1 and 9
                 if 0 < grille[x][y] < 10:
                     if grille[x][y] == sudoku_grille[x][y]:
@@ -138,7 +138,8 @@ def game():
                     grille[case] = value
                     flag = 1
 
-                if event.key == pygame.K_BACKSPACE and sudoku_grille[case] == 0:
+                if (event.key == pygame.K_BACKSPACE or event.key == pygame.K_0 or event.key == pygame.K_KP0) and \
+                        sudoku_grille[case] == 0:
                     value = 0
                     grille[case] = value
                     flag = 1
@@ -146,19 +147,9 @@ def game():
                 if flag == 1:
                     affichage()
                     flag = 0
-
         pygame.display.update()
-
-
-def fin():
-    for ligne in grille:
-        for j in ligne:
-            if j == 0:
-                return
-    if grille == solution_grille:
-        return True
-    else:
-        return False
+        if grille == solution_grille:
+            running = False
 
 
 if __name__ == "__main__":
